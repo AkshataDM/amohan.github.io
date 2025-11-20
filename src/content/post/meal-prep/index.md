@@ -12,9 +12,9 @@ That's when I added semantic recipe search with vector embeddings. Now when I ty
 
 ## The Tech Stack
 
-Built this entirely on Cloudflare because, I work here and honestly, I wanted to build something quick. 
+Built this entirely on Cloudflare because I work there and it's very quick to build on. 
 
-**Cloudflare Workers** handle all the API logic. No cold starts, quick deployments. Each worker function processes meal requests, handles ingredient parsing, and manages the session based nutrition tracking. The coolest thing for me though was how easy it is to add all the bells and whistles as bindings. Workers AI is just a configuration to the application as is D1 and KV. Can it be any easier?! 
+**Cloudflare Workers** handles all the API logic. No cold starts and supports quick deployments. Each worker function processes meal requests, handles ingredient parsing, and manages the session based nutrition tracking. The coolest thing for me though was how easy it is to add all the bells and whistles as bindings. Workers AI is just a configuration to the application as is D1 and KV. Can it be any easier?! 
 
 ![AI gateway logs](/images/meal-prep-workers.png)
 
@@ -23,7 +23,7 @@ I built a cascading cache system that gets smarter with each meal:
 
 **Cloudflare KV** for exact meal matches. When I type "paneer tikka masala" for the hundredth time, instant ingredient list. Still hitting ~80% cache rate here.
 
-**Cloudflare Vectorize** for semantic similarity. This is where the magic happens. When I type "matar paneer with rice," it finds my previous "matar paneer with naan" embedding and adapts the spices and naan instead of starting from scratch. Catches another ~15% of my queries.
+**Cloudflare Vectorize** for semantic similarity. When I type "matar paneer with rice," it finds my previous "matar paneer with naan" embedding and adapts the spices and naan instead of starting from scratch. Catches another ~15% of my queries.
 
 
 ```

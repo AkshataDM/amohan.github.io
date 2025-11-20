@@ -1,5 +1,5 @@
 ---
-title: "[Dogs] A post about dog trainig"
+title: "[Dogs] A post about dog training"
 description: "Wanted to share my journey training dogs"
 publishDate: "12 August 2025"
 tags: ["dogs", "training"]
