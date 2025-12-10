@@ -11,29 +11,29 @@ Based on insights from Hamel Husain and Shreya Shankar's popular AI Evals course
 
 ## Evals Are A Necessity
 
-While building an AI application, I've spent at least 40-50% of my time on manual error analysis and evaluation. Manually looking through your AI output traces are not an afterthought. That might sound excessive, but its important to know if the latest prompt change broke something, if your model is hallucinating on edge cases, or if users are quietly abandoning your product due to unreliable outputs.
+While building an AI application, I spend at least 40-50% of my time on manual error analysis and evaluation. I believe that manually reading through your AI output traces might sound a bit excessive, but it's helped me understand my data better. It's important for me to know if my latest prompt  broke something, if the model is hallucinating on edge cases, or if I misunderstood the user requirements.
 
-The course identifies three critical "gulfs" in AI development: 
-- Gulf of Comprehension: Understanding your data (go through the inputs and those output traces!)
-- Gulf of Specification: Configure the prompt carefully with the exact output you desire. LLMs aren't humans and have varying performance across inputs
+Going back to what I learned on the evals course, they define three "gulfs" in AI development: 
+- Gulf of Comprehension: Understanding the data (go through the inputs and those output traces!)
+- Gulf of Specification: Configure the prompt carefully with the desired output. Few shot prompting, structured outputs, instruction prompting are some options.
 - Gulf of Generalization: Make sure the LLM does well beyond the data it was trained on by identifying the right technqiue - context engineering, RAG, breaking down instructions into multiple steps, to make sure the LLM generalizes well enough. 
 
 ## Start with Error Analysis, Not Metrics
 
-When I first built AI apps, my mistake was jumping right into the metrics. While metrics like relevancy scores, hallucination scores were useful, it took me a while to identify the root cause. I found that manually reviewing real user traces helped a lot more to uncover upstream issues and patterns. Block 30 minutes on your calendar, pull 10 real user interactions, and write down what went right and what went wrong.
+When I first built AI apps, my mistake was jumping right into the metrics. While metrics like relevancy scores, hallucination scores are always useful, it took me a while to identify the root cause. I found that manually reviewing real user traces helped a lot more to uncover upstream issues and patterns. So I now block 30 minutes on my calendar, pull 20-50 real user interactions, and write down what went right and what went wrong.
 
 This manual review accomplishes two things:
-1. It grounds you in actual user problems rather than imagined ones
+1. It grounds me in actual user problems rather than imagined ones
 2. It helps identify failure modes that generic metrics would miss
 
 
-## Building Your Eval Pipeline Without Making It a Bottleneck
+## Building an Eval Pipeline Without Making It a Bottleneck
 
-The key is to integrate evals into your development workflow, not treat them as a separate phase. Here's a practical approach:
+I've found that integrating an eval pipeline in the development workflow is a lot easier than running evals after deployment. 
 
 ### 1. Define Pass/Fail Criteria That Matter
 
-Generic metrics like BERTScore, ROUGE, and cosine similarity are not useful for evaluating LLM outputs in most AI applications. Instead, design binary pass/fail evals using LLM-as-judge or code-based assertions. 
+Generic metrics like BERTScore, ROUGE, and cosine similarity are not useful for evaluating LLM outputs in most AI applications. Instead, I've found that  binary pass/fail evals using LLM-as-judge or code-based assertions are better at telling me what is going on in my application. 
 Let's take an example of building an AI powered real estate CRM assistant. Here's what might be useful to measure 
 
 - ✅ Do measure: "Does the system suggest only available showings?" (code assertion)
@@ -42,15 +42,16 @@ Let's take an example of building an AI powered real estate CRM assistant. Here'
 
 ### 2. Use LLM-as-Judge Thoughtfully
 
-LLM-as-Judge approaches can effectively evaluate outputs when properly validated against human judgments. The trick is alignment - make sure you go through bunch of traces manually and label it. This might seem cumbersome, but it will only make you LLM judge a better evaluator.
+LLM-as-Judge approaches can effectively evaluate outputs when properly validated against human judgments. The trick is alignment - I have found that going through traces manually and labeling it works best for the judge LLM.
 
-### 3. Scale Your Testing with Synthetic Data
+### 3. Scale Testing with Synthetic Data
 
-When you don't have enough real examples, synthetic data fills the gaps. Synthetic data scales fast (you can easily generate thousands of test cases), fills gaps by adding missing scenarios and edge cases, and allows controlled testing to see how AI handles specific challenges.
+Full disclaimer - I am yet to try this approach! 
+Shreya and Hamel talk about synthetic data generation quite a bit in the course. The recommendation is that when you don't have enough real examples, synthetic data fills the gaps. Synthetic data scales fast (you can easily generate thousands of test cases), fills gaps by adding missing scenarios and edge cases, and allows controlled testing to see how AI handles specific challenges. 
 
 The process typically involves two stages: context generation (selecting relevant chunks from your knowledge base) and input generation (creating questions/queries from those contexts). This reverses standard retrieval - instead of finding contexts from inputs, you create inputs from predefined contexts.
 
-## Key Metrics That Actually Matter
+## Key Metrics & Takeaways: 
 
 While every application needs custom metrics, here are the essential categories to consider:
 
@@ -78,9 +79,7 @@ Understanding why your system fails is as important as knowing that it fails. St
 Well crafted eval prompts effectively become living product requirements documents that continuously test your AI in real time. Iterate on the application as you get feedback signals from the evaluation pipeline. I've found this to be a far better choice than building an entire application with all the embedding AI features only to course correct or change requirements after evaluations or user testing. Start small, iterate quickly. 
 
 
-## The Path Forward
-
-Building reliable AI applications isn't about finding the perfect model or crafting the ultimate prompt—it's about creating a systematic approach to understanding and improving your system's behavior. Evals are the language of trust. They are the only way to systematically prove that your AI is improving.
+## The TLDR:
 
 Start small:
 1. Manually review 10-20 real interactions today

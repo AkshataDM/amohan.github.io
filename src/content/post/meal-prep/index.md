@@ -127,5 +127,3 @@ While this is a very simplistic view of macro definitions, it works for me and m
 Best part? You just copy paste the final ingredient list. No more forgotten squash.
 
 The whole thing deploys in seconds with `wrangler deploy`. No infrastructure to manage, no scaling concerns, just pure edge performance. And completely free. Yes, even if you don't work at Cloudflare, check out our Free tier. You can build a whole lot with just a free account. What I built was probably overkill for a personal project, but the Cloudflare stack made the entire build process ridiculously smooth. 
-
-Want to check it out? Try [this.](https://meal-preppy.com)
